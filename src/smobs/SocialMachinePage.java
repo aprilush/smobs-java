@@ -133,7 +133,7 @@ public class SocialMachinePage {
 			Element revision = doc.createElement("revision");
 			page.appendChild(revision);
 			Element text = doc.createElement("text");
-			text.setTextContent(generateTemplateText());
+			text.setTextContent(generateTemplateText()+"\n"+generateContentText());
 			revision.appendChild(text); 
 	        Transformer transformer = TransformerFactory.newInstance().newTransformer();
 	        DOMSource source = new DOMSource(doc);
@@ -142,7 +142,7 @@ public class SocialMachinePage {
 		  } catch (ParserConfigurationException pce) {
 			pce.printStackTrace();
 		  } catch (TransformerException tfe) {
-		        tfe.printStackTrace();
+		    tfe.printStackTrace();
 		  }
 		return null;
 	}
@@ -160,9 +160,9 @@ public class SocialMachinePage {
 			out.append("| url = \n");
 		}
 		if (logo!=null && !logo.isEmpty()) {
-			out.append("| logo = [[File:"+logo.toString()+"|150px|Logo]]\n");
+			out.append("| logo = [[File:"+logo+"|150px|Logo]]\n");
 		} else {
-			out.append("| url = \n");
+			out.append("| logo = \n");
 		}
 		if (languages!=null && !languages.isEmpty()) {
 			out.append("| language = "+languages.toString()+"\n");
@@ -180,11 +180,24 @@ public class SocialMachinePage {
 			out.append("| launch date = \n");
 		}
 		if (status!=null && !status.isEmpty()) {
-			out.append("| current status = "+status.toString()+"\n");
+			out.append("| status = "+status.toString()+"\n");
 		} else {
-			out.append("| current status = \n");
+			out.append("| status = \n");
 		}
 		out.append("}}");
+		return out.toString();
+	}
+	
+	private String generateContentText() {
+		StringBuffer out = new StringBuffer("Please include a short description of '''");
+		out.append(name);
+		out.append("''', with the relevant information from the list below:\n* overall goal of the system\n* launch date, owner, location\n* evolution over time\n* any trivia / interesting facts about the system\n\n");
+		out.append("==Goal==\n\n");
+		out.append("==Input (Tasks)==\n\n");
+		out.append("==Output (Results)==\n\n");
+		out.append("==Participants (Users)==\n\n");
+		out.append("==Motivation (Incentives)==\n\n");
+		out.append("==Other==\n\n");		
 		return out.toString();
 	}
 	
